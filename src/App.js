@@ -25,6 +25,8 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
 
+const URL = 'https://devconnector-api-eixg.onrender.com';
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -39,11 +41,11 @@ const App = () => {
         <Navbar />
         <Alert />
         <Routes>
-          <Route exact path="/" element={<Landing />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/profiles" element={<Profiles />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route exact path={`${URL}`} element={<Landing />} />
+          <Route path={`${URL}/register`} element={<Register />} />
+          <Route path={`${URL}/login`} element={<Login />} />
+          <Route path={`${URL}/profiles`} element={<Profiles />} />
+          <Route path={`${URL}/profiles/:id`} element={<Profile />} />
 
           <Route
             path="/dashboard"
