@@ -11,12 +11,13 @@ import {
   GET_PROFILES,
   NO_REPOS,
   GET_REPOS,
+  addressRoute,
 } from './types';
 //get current users profiles.
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/profile/me');
+    const res = await axios.get(`${addressRoute}/api/profile/me`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -41,7 +42,7 @@ export const getProfiles = () => async (dispatch) => {
     type: CLEAR_PROFILE,
   });
   try {
-    const res = await axios.get('/api/profile');
+    const res = await axios.get(`${addressRoute}/api/profile`);
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
@@ -62,7 +63,7 @@ export const getProfileById = (userId) => async (dispatch) => {
     type: CLEAR_PROFILE,
   });
   try {
-    const res = await axios.get(`/api/profile/user/${userId}`);
+    const res = await axios.get(`${addressRoute}/api/profile/user/${userId}`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -80,7 +81,9 @@ export const getProfileById = (userId) => async (dispatch) => {
 
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/github/${username}`);
+    const res = await axios.get(
+      `${addressRoute}/api/profile/github/${username}`
+    );
 
     dispatch({
       type: GET_REPOS,
@@ -105,7 +108,11 @@ export const createProfile =
       const config = {
         headers: { 'Content-Type': 'application/json' },
       };
-      const res = await axios.post('/api/profile', formData, config);
+      const res = await axios.post(
+        `${addressRoute}/api/profile`,
+        formData,
+        config
+      );
       dispatch({
         type: GET_PROFILE,
         payload: res.data,
@@ -136,7 +143,11 @@ export const addExperience = (formData, navigate) => async (dispatch) => {
     const config = {
       headers: { 'Content-Type': 'application/json' },
     };
-    const res = await axios.put('/api/profile/experience', formData, config);
+    const res = await axios.put(
+      `${addressRoute}/api/profile/experience`,
+      formData,
+      config
+    );
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -164,7 +175,11 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
     const config = {
       headers: { 'Content-Type': 'application/json' },
     };
-    const res = await axios.put('/api/profile/education', formData, config);
+    const res = await axios.put(
+      `${addressRoute}/api/profile/education`,
+      formData,
+      config
+    );
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -190,7 +205,9 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
 //delete experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profile/experience/${id}`);
+    const res = await axios.delete(
+      `${addressRoute}/api/profile/experience/${id}`
+    );
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -214,7 +231,9 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profile/education/${id}`);
+    const res = await axios.delete(
+      `${addressRoute}/api/profile/education/${id}`
+    );
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -240,7 +259,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? this can not be undone.')) {
     try {
-      await axios.delete('/api/profile');
+      await axios.delete(`${addressRoute}/api/profile`);
 
       dispatch({
         type: CLEAR_PROFILE,
